@@ -6,5 +6,8 @@ class testMain{
         Console.ReadLine(null); // String
         Console.ReadLine(0); // int
         Console.ReadKey(); // char
+        while (true){
+            Console.WriteLine(Console.GetCursorPosition());
+        }
     }
 }

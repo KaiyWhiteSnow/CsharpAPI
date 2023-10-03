@@ -1,5 +1,7 @@
 package Console;
+import java.util.ArrayList;
 import java.util.Scanner;
+import java.awt.MouseInfo;
 
 public class Console {
     /**
@@ -7,12 +9,14 @@ public class Console {
      * 
      * WriteLine();
      * ReadLine();
+     * ReadKey();
+     * GetCursonPosition();
      */
     public static void WriteLine(Object arg){
         /**
          * WriteLine(Obj arg)
          * 
-         * WriteLine takes argument in the form of object which java can interpret on it's own.
+         * WriteLine takes argument in the form of object which java can interpret on it's own
          */
         System.out.println(arg);
     }
@@ -46,12 +50,35 @@ public class Console {
         return null;
     }
     public static char ReadKey() {
-        java.io.Console console = System.console();
-        if (console == null) {
-            throw new UnsupportedOperationException("Console not available");
+        /**
+         * ReadKey()
+         * 
+         * ReadKey will return a char "key" which is whatever key is pressed. Exception thrown if console is not used, commonly an issue in IDEs
+         */
+        try (Scanner scanner = new Scanner(System.in)) {
+            if (scanner.hasNext()) {
+                String input = scanner.next();
+                if (input.length() == 1) {
+                    return input.charAt(0);
+                }
+            }
         }
-        
-        char key = console.readLine().charAt(0);
-        return key;
+        throw new UnsupportedOperationException("Console not available");
+    }
+    public static ArrayList<Integer> GetCursorPosition(){
+        /**
+         * GetCursorPosition()
+         * 
+         * Returns ArrayList with x and y coordinates of your mouse position
+         */
+        ArrayList<Integer> list = new ArrayList<Integer>();
+        int pointX = MouseInfo.getPointerInfo().getLocation().x;
+        int pointY = MouseInfo.getPointerInfo().getLocation().y;
+
+        list.add(pointX);
+        list.add(pointY);
+
+
+        return list;
     }
 }
